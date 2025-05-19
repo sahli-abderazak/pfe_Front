@@ -20,7 +20,6 @@ const DEPARTMENTS = [
   { id: "4", name: "Finance" },
   { id: "5", name: "Education" },
   { id: "6", name: "Santé" },
-  { id: "7", name: "autre" },
 ]
 
 const DOMAINS = {
@@ -57,7 +56,7 @@ const DOMAINS = {
     { id: "3", name: "Soins Infirmiers" },
     { id: "4", name: "Pharmacie" },
   ],
-  autre: [{ id: "1", name: "Autre" }],
+  Autre: [{ id: "1", name: "Autre" }],
 }
 
 const POSITIONS = {
@@ -94,7 +93,7 @@ const POSITIONS = {
     { id: "3", name: "Pharmacien" },
     { id: "4", name: "Technicien de Santé" },
   ],
-  autre: [{ id: "1", name: "Autre" }],
+  Autre: [{ id: "1", name: "Autre" }],
 }
 
 const CITIES = [
@@ -183,7 +182,7 @@ const MATCHING_PERCENTAGES = [
 ]
 
 // Valeur spéciale pour l'option "Autre"
-const AUTRE_OPTION = "autre"
+const AUTRE_OPTION = "Autre"
 
 interface Offre {
   id: number
@@ -299,8 +298,8 @@ export function OffreEditDialog({ offre, isOpen, onClose, onOffreUpdated }: Offr
 
       // Vérifier si le domaine et le poste sont dans les listes prédéfinies
       if (offre.departement) {
-        // Si le département est "autre", initialiser les champs personnalisés
-        if (offre.departement === "autre") {
+        // Si le département est "Autre", initialiser les champs personnalisés
+        if (offre.departement === "Autre") {
           setCustomDepartement(offre.departement)
           setCustomDomaine(offre.domaine)
           setCustomPoste(offre.poste)
@@ -329,7 +328,7 @@ export function OffreEditDialog({ offre, isOpen, onClose, onOffreUpdated }: Offr
 
   // Mettre à jour les domaines et postes disponibles lorsque le département change
   useEffect(() => {
-    if (formData.departement && formData.departement !== "autre") {
+    if (formData.departement && formData.departement !== "Autre") {
       setAvailableDomains(DOMAINS[formData.departement as keyof typeof DOMAINS] || [])
       setAvailablePositions(POSITIONS[formData.departement as keyof typeof POSITIONS] || [])
     } else {
@@ -369,7 +368,7 @@ export function OffreEditDialog({ offre, isOpen, onClose, onOffreUpdated }: Offr
     if (name === "poste" && value !== AUTRE_OPTION) {
       setCustomPoste("")
     }
-    if (name === "departement" && value !== "autre") {
+    if (name === "departement" && value !== "Autre") {
       setCustomDepartement("")
       setCustomDomaine("")
       setCustomPoste("")
@@ -421,15 +420,15 @@ export function OffreEditDialog({ offre, isOpen, onClose, onOffreUpdated }: Offr
       const dataToSend = {
         ...formData,
         // Utiliser les valeurs personnalisées si "Autre" est sélectionné
-        departement: formData.departement === "autre" ? customDepartement : formData.departement,
+        departement: formData.departement === "Autre" ? customDepartement : formData.departement,
         domaine:
-          formData.departement === "autre"
+          formData.departement === "Autre"
             ? customDomaine
             : formData.domaine === AUTRE_OPTION
               ? customDomaine
               : formData.domaine,
         poste:
-          formData.departement === "autre"
+          formData.departement === "Autre"
             ? customPoste
             : formData.poste === AUTRE_OPTION
               ? customPoste
@@ -689,12 +688,12 @@ export function OffreEditDialog({ offre, isOpen, onClose, onOffreUpdated }: Offr
                               {dept.name}
                             </option>
                           ))}
-                          <option value="autre">Autre</option>
+                          <option value="Autre">Autre</option>
                         </select>
                       </div>
 
                       {/* Si "autre" est sélectionné comme département, afficher les champs personnalisés */}
-                      {formData.departement === "autre" ? (
+                      {formData.departement === "Autre" ? (
                         <>
                           {/* Champ personnalisé pour le département */}
                           <div className={styles.formGroup}>

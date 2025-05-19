@@ -39,12 +39,12 @@ export default function ForgotPassword() {
       if (response.ok) {
         setSuccess(true)
       } else {
-        console.error("Failed to send verification code", data.error)
+        // console.error("Failed to send verification code", data.error)
         setError(data.error || "Email non trouvé")
         setShowErrorDialog(true)
       }
     } catch (error) {
-      console.error("Error sending verification code", error)
+      // console.error("Error sending verification code", error)
       setError("Une erreur s'est produite lors de l'envoi du code")
       setShowErrorDialog(true)
     } finally {

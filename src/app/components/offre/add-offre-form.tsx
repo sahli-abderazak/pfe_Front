@@ -25,7 +25,6 @@ const DEPARTMENTS = [
   { id: "4", name: "Finance" },
   { id: "5", name: "Education" },
   { id: "6", name: "Santé" },
-  { id: "7", name: "autre" },
 ]
 
 const DOMAINS = {
@@ -62,7 +61,7 @@ const DOMAINS = {
     { id: "3", name: "Soins Infirmiers" },
     { id: "4", name: "Pharmacie" },
   ],
-  autre: [{ id: "1", name: "Autre" }],
+  Autre: [{ id: "1", name: "Autre" }],
 }
 
 const POSITIONS = {
@@ -99,7 +98,7 @@ const POSITIONS = {
     { id: "3", name: "Pharmacien" },
     { id: "4", name: "Technicien de Santé" },
   ],
-  autre: [{ id: "1", name: "Autre" }],
+  Autre: [{ id: "1", name: "Autre" }],
 }
 
 const CITIES = [
@@ -187,7 +186,7 @@ const TRAIT_WEIGHTS = [
 ]
 
 // Valeur spéciale pour l'option "Autre"
-const AUTRE_OPTION = "autre"
+const AUTRE_OPTION = "Autre"
 
 export function AddOffreForm({ onOffreAdded }: { onOffreAdded: () => void }) {
   const router = useRouter()
@@ -285,7 +284,7 @@ export function AddOffreForm({ onOffreAdded }: { onOffreAdded: () => void }) {
 
   // Update available domains and positions when department changes
   useEffect(() => {
-    if (formData.departement && formData.departement !== "autre") {
+    if (formData.departement && formData.departement !== "Autre") {
       setAvailableDomains(DOMAINS[formData.departement as keyof typeof DOMAINS] || [])
       setAvailablePositions(POSITIONS[formData.departement as keyof typeof POSITIONS] || [])
     } else {
@@ -294,7 +293,7 @@ export function AddOffreForm({ onOffreAdded }: { onOffreAdded: () => void }) {
     }
 
     // Réinitialiser les valeurs personnalisées et les sélections lorsque le département change
-    if (formData.departement !== "autre") {
+    if (formData.departement !== "Autre") {
       setCustomDomaine("")
       setCustomPoste("")
       setCustomDepartement("")
@@ -321,7 +320,7 @@ export function AddOffreForm({ onOffreAdded }: { onOffreAdded: () => void }) {
     if (name === "poste" && value !== AUTRE_OPTION) {
       setCustomPoste("")
     }
-    if (name === "departement" && value !== "autre") {
+    if (name === "departement" && value !== "Autre") {
       setCustomDepartement("")
       setCustomDomaine("")
       setCustomPoste("")
@@ -378,12 +377,12 @@ export function AddOffreForm({ onOffreAdded }: { onOffreAdded: () => void }) {
       let value = formData[field as keyof typeof formData]
 
       // Special handling for custom fields
-      if (field === "departement" && formData.departement === "autre") {
+      if (field === "departement" && formData.departement === "Autre") {
         value = customDepartement
       }
 
       if (field === "domaine") {
-        if (formData.departement === "autre") {
+        if (formData.departement === "Autre") {
           value = customDomaine
         } else if (formData.domaine === AUTRE_OPTION) {
           value = customDomaine
@@ -391,7 +390,7 @@ export function AddOffreForm({ onOffreAdded }: { onOffreAdded: () => void }) {
       }
 
       if (field === "poste") {
-        if (formData.departement === "autre") {
+        if (formData.departement === "Autre") {
           value = customPoste
         } else if (formData.poste === AUTRE_OPTION) {
           value = customPoste
@@ -474,15 +473,15 @@ export function AddOffreForm({ onOffreAdded }: { onOffreAdded: () => void }) {
       const dataToSubmit = {
         ...formData,
         // Use the values directly from formData instead of editor refs
-        departement: formData.departement === "autre" ? customDepartement : formData.departement,
+        departement: formData.departement === "Autre" ? customDepartement : formData.departement,
         domaine:
-          formData.departement === "autre"
+          formData.departement === "Autre"
             ? customDomaine
             : formData.domaine === AUTRE_OPTION
               ? customDomaine
               : formData.domaine,
         poste:
-          formData.departement === "autre"
+          formData.departement === "Autre"
             ? customPoste
             : formData.poste === AUTRE_OPTION
               ? customPoste
@@ -695,13 +694,13 @@ export function AddOffreForm({ onOffreAdded }: { onOffreAdded: () => void }) {
                           {dept.name}
                         </option>
                       ))}
-                      <option value="autre">Autre</option>
+                      <option value="Autre">Autre</option>
                     </select>
                     {hasError("departement") && <p className="text-xs text-red-500 mt-1">Ce champ est obligatoire</p>}
                   </div>
 
                   {/* Si "autre" est sélectionné comme département, afficher les champs personnalisés */}
-                  {formData.departement === "autre" ? (
+                  {formData.departement === "Autre" ? (
                     <>
                       {/* Champ personnalisé pour le département */}
                       <div className={styles.formGroup}>
