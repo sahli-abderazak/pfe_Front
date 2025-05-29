@@ -1,14 +1,15 @@
 "use client"
 
 import { useState, useEffect, use } from "react"
-import { Briefcase, MapPin, Clock, Upload, GraduationCap, Trophy, Calendar, Timer, User } from "lucide-react"
+import { ArrowLeft, Briefcase, MapPin, Clock, Upload, GraduationCap, Trophy, Calendar, Timer, User } from 'lucide-react'
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Footer from "../../components/index/footer"
 import Header from "../../components/index/header"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle, CheckCircle2 } from "lucide-react"
+import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -84,6 +85,8 @@ export default function JobDetailPage({
   const [calculatingScore, setCalculatingScore] = useState(false)
   const [showMatchingErrorDialog, setShowMatchingErrorDialog] = useState(false) // New state for matching error dialog
   const [matchingErrorMessage, setMatchingErrorMessage] = useState("") // New state for matching error message
+
+  const router = useRouter()
 
   useEffect(() => {
     // Fetch job details
@@ -573,6 +576,19 @@ export default function JobDetailPage({
         {/* Upper Box */}
         <div className="upper-box">
           <div className="auto-container">
+            {/* Mobile Back Button */}
+            <div className="md:hidden mb-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => router.back()}
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Retour
+              </Button>
+            </div>
+            
             {/* Job Block */}
             <div className="job-block-seven">
               <div className="inner-box">

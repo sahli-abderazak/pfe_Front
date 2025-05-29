@@ -62,7 +62,7 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
   // Timer state
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null)
   const [startTime, setStartTime] = useState<number | null>(null)
-  const [totalTime] = useState(10 * 60) // 10 minutes in seconds
+  const [totalTime] = useState(7 * 60) // 7 minutes in seconds
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Use refs to track initialization state and prevent multiple API calls
@@ -1112,41 +1112,35 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
   // Fonction pour afficher le message de triche détectée
   const renderCheatingDetectedMessage = () => {
     return (
-      <div className="w-full max-w-3xl mx-auto">
+      <div className="w-full max-w-3xl mx-auto px-4">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-red-200">
-          <div className="bg-gradient-to-r from-red-600 to-red-700 p-6 flex flex-col items-center justify-center text-white">
-            <div className="h-20 w-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4">
+          <div className="bg-gradient-to-r from-red-600 to-red-700 p-4 sm:p-6 flex flex-col items-center justify-center text-white">
+            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-white/20 rounded-full animate-pulse"></div>
-                <Shield className="h-10 w-10 text-white relative z-10" />
+                <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-white relative z-10" />
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-center">Test bloqué : Triche détectée</h2>
-            <p className="text-white/80 text-center mt-2">Vous n'êtes pas autorisé à repasser ce test</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-center">Test bloqué : Triche détectée</h2>
+            <p className="text-white/80 text-center mt-2 text-sm sm:text-base">
+              Vous n'êtes pas autorisé à repasser ce test
+            </p>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             <Alert variant="destructive" className="mb-6">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
+              <AlertDescription className="text-sm">
                 Nous avons détecté des comportements suspects lors de votre tentative. Pour des raisons de sécurité et
                 d'équité, vous ne pouvez plus continuer ce test.
               </AlertDescription>
             </Alert>
 
-            <div className="bg-red-50 border border-red-100 rounded-lg p-4 mb-6">
-              <h3 className="text-lg font-semibold text-red-800 mb-2">Pourquoi ce message ?</h3>
-              <p className="text-red-700 text-sm">
-                Notre système a détecté des tentatives de contournement des règles du test, comme des changements
-                d'onglet, des sorties de la fenêtre, des tentatives de copier-coller, ou d'autres actions non autorisées
-                pendant l'évaluation.
-              </p>
-            </div>
 
             <div className="flex justify-center">
               <Button
                 onClick={() => window.history.back()}
-                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 w-full sm:w-auto"
               >
                 Retour aux offres d'emploi
               </Button>
@@ -1167,18 +1161,18 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
     const scorePercentage = maxPossibleScore > 0 ? Math.round((scoreTotal / maxPossibleScore) * 100) : 0
 
     return (
-      <div className="flex flex-col items-center justify-center p-8 space-y-6 text-center">
-        <div className="flex items-center justify-center h-16 w-16 rounded-full bg-red-100">
-          <AlertCircle className="h-8 w-8 text-red-600" />
+      <div className="flex flex-col items-center justify-center p-6 sm:p-8 space-y-6 text-center">
+        <div className="flex items-center justify-center h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-red-100">
+          <AlertCircle className="h-6 w-6 sm:h-8 sm:w-8 text-red-600" />
         </div>
-        <h3 className="text-2xl font-bold">Temps écoulé</h3>
+        <h3 className="text-xl sm:text-2xl font-bold">Temps écoulé</h3>
 
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-sm sm:text-base max-w-md">
           Le temps alloué pour ce test est écoulé. Votre candidature a été enregistrée avec les réponses que vous avez
           fournies. N'hésitez pas à consulter votre email, nous vous enverrons bientôt une notification concernant votre
           acceptation ou rejet pour un entretien présentiel.
         </p>
-        <Button variant="outline" onClick={() => window.history.back()}>
+        <Button variant="outline" onClick={() => window.history.back()} className="w-full sm:w-auto">
           Retour
         </Button>
       </div>
@@ -1187,9 +1181,9 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
 
   if (loading && testStage === "qcm") {
     return (
-      <div className="flex flex-col items-center justify-center p-8 space-y-4">
-        <div className="h-12 w-12 rounded-full border-4 border-t-primary border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
-        <p className="text-muted-foreground">Chargement des questions...</p>
+      <div className="flex flex-col items-center justify-center p-6 sm:p-8 space-y-4">
+        <div className="h-8 w-8 sm:h-12 sm:w-12 rounded-full border-4 border-t-primary border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
+        <p className="text-muted-foreground text-sm sm:text-base">Chargement des questions...</p>
       </div>
     )
   }
@@ -1207,12 +1201,12 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
       const score = scoreMatch ? scoreMatch[1] : null
 
       return (
-        <div className="w-full max-w-3xl mx-auto">
+        <div className="w-full max-w-3xl mx-auto px-4">
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="bg-blue-50 p-6 flex flex-col items-center justify-center">
-              <div className="h-20 w-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+            <div className="bg-blue-50 p-4 sm:p-6 flex flex-col items-center justify-center">
+              <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
                 <svg
-                  className="h-10 w-10 text-blue-600"
+                  className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -1221,30 +1215,18 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
                   <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-center text-gray-800">Test déjà complété</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-center text-gray-800">Test déjà complété</h2>
             </div>
 
-            <div className="p-6">
-              <p className="text-center text-gray-600 mb-6">
+            <div className="p-4 sm:p-6">
+              <p className="text-center text-gray-600 mb-6 text-sm sm:text-base">
                 Vous avez déjà passé ce test.
-                {score && (
-                  <span className="block mt-2 font-medium text-lg">
-                    Votre score est de <span className="text-blue-600 font-bold">{score}</span>.
-                  </span>
-                )}
               </p>
 
-              {score && (
-                <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-                  <div
-                    className="bg-blue-600 h-2.5 rounded-full"
-                    style={{ width: `${Math.min(Number.parseInt(score), 100)}%` }}
-                  ></div>
-                </div>
-              )}
+             
 
               <div className="flex justify-center">
-                <Button variant="outline" onClick={() => window.history.back()} className="px-6 py-2">
+                <Button variant="outline" onClick={() => window.history.back()} className="w-full sm:w-auto px-6 py-2">
                   Retour
                 </Button>
               </div>
@@ -1256,51 +1238,52 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
 
     // Sinon, afficher le message de succès normal
     return (
-      <div className="flex flex-col items-center justify-center p-8 space-y-6 text-center">
-        <div className="flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
-          <CheckCircle2 className="h-8 w-8 text-green-600" />
+      <div className="flex flex-col items-center justify-center p-6 sm:p-8 space-y-6 text-center">
+        <div className="flex items-center justify-center h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-green-100">
+          <CheckCircle2 className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
         </div>
-        <h3 className="text-2xl font-bold">Test terminé !</h3>
-        <p className="text-muted-foreground mb-6">
+        <h3 className="text-xl sm:text-2xl font-bold">Test terminé !</h3>
+        <p className="text-muted-foreground mb-6 text-sm sm:text-base max-w-md">
           Votre candidature a été enregistrée avec succès. N'hésitez pas à consulter votre email, nous vous enverrons
           bientôt une notification concernant votre acceptation ou rejet pour un entretien présentiel.
         </p>
 
         {/* Rating system with smiles */}
-        <div className="mt-8 bg-white p-6 rounded-lg shadow-sm border">
-          <h4 className="text-xl font-semibold mb-6 text-center">Comment évaluez-vous ce test ?</h4>
-          <div className="flex justify-center gap-8">
+        <div className="mt-8 bg-white p-4 sm:p-6 rounded-lg shadow-sm border w-full max-w-md">
+          <h4 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-center">Comment évaluez-vous ce test ?</h4>
+          <div className="flex flex-wrap justify-center gap-1 sm:gap-4">
             {[1, 2, 3, 4, 5].map((score) => (
-              <button
-                key={score}
-                onClick={() => handleRatingSubmit(score)}
-                className="transition-all duration-300 hover:scale-110 focus:outline-none"
-              >
-                <div
-                  className={`h-16 w-16 rounded-full flex items-center justify-center shadow-md ${
-                    selectedRating === score
-                      ? "bg-blue-600 text-white transform scale-110"
-                      : "bg-blue-100 text-blue-600 hover:bg-blue-200"
-                  }`}
+              <div key={score} className="flex flex-col items-center flex-1 min-w-0">
+                <button
+                  onClick={() => handleRatingSubmit(score)}
+                  className="transition-all duration-300 hover:scale-110 focus:outline-none w-full mb-1 sm:mb-3"
                 >
-                  {score === 1 && <span className="text-3xl">😞</span>}
-                  {score === 2 && <span className="text-3xl">🙁</span>}
-                  {score === 3 && <span className="text-3xl">😐</span>}
-                  {score === 4 && <span className="text-3xl">🙂</span>}
-                  {score === 5 && <span className="text-3xl">😄</span>}
-                </div>
-                <span className="block mt-3 text-sm font-medium text-center">
+                  <div
+                    className={`h-8 w-8 sm:h-16 sm:w-16 mx-auto rounded-full flex items-center justify-center shadow-md ${
+                      selectedRating === score
+                        ? "bg-blue-600 text-white transform scale-110"
+                        : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                    }`}
+                  >
+                    {score === 1 && <span className="text-sm sm:text-3xl">😞</span>}
+                    {score === 2 && <span className="text-sm sm:text-3xl">🙁</span>}
+                    {score === 3 && <span className="text-sm sm:text-3xl">😐</span>}
+                    {score === 4 && <span className="text-sm sm:text-3xl">🙂</span>}
+                    {score === 5 && <span className="text-sm sm:text-3xl">😄</span>}
+                  </div>
+                </button>
+                <span className="text-xs sm:text-sm font-medium text-center leading-tight px-1">
                   {score === 1 && "Très insatisfait"}
                   {score === 2 && "Insatisfait"}
                   {score === 3 && "Neutre"}
                   {score === 4 && "Satisfait"}
                   {score === 5 && "Très satisfait"}
                 </span>
-              </button>
+              </div>
             ))}
           </div>
           {ratingSubmitted && (
-            <div className="mt-6 p-3 bg-green-50 border border-green-200 rounded-md text-center text-green-700 font-medium">
+            <div className="mt-4 sm:mt-6 p-3 bg-green-50 border border-green-200 rounded-md text-center text-green-700 font-medium text-sm">
               Merci pour votre évaluation !
             </div>
           )}
@@ -1311,14 +1294,16 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
 
   if (error && testStage === "qcm") {
     return (
-      <div className="p-6 space-y-4">
+      <div className="p-4 sm:p-6 space-y-4">
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
+          <AlertDescription className="text-sm">{error}</AlertDescription>
         </Alert>
-        <div className="flex gap-4">
-          <Button onClick={fetchQuestions}>Réessayer</Button>
-          <Button variant="outline" onClick={() => window.history.back()}>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <Button onClick={fetchQuestions} className="w-full sm:w-auto">
+            Réessayer
+          </Button>
+          <Button variant="outline" onClick={() => window.history.back()} className="w-full sm:w-auto">
             Retour
           </Button>
         </div>
@@ -1328,14 +1313,16 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
 
   if (!questions.length && testStage === "qcm") {
     return (
-      <div className="p-6 space-y-4">
+      <div className="p-4 sm:p-6 space-y-4">
         <Alert>
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>Aucune question n'a été trouvée pour ce test.</AlertDescription>
+          <AlertDescription className="text-sm">Aucune question n'a été trouvée pour ce test.</AlertDescription>
         </Alert>
-        <div className="flex gap-4">
-          <Button onClick={fetchQuestions}>Réessayer</Button>
-          <Button variant="outline" onClick={() => window.history.back()}>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <Button onClick={fetchQuestions} className="w-full sm:w-auto">
+            Réessayer
+          </Button>
+          <Button variant="outline" onClick={() => window.history.back()} className="w-full sm:w-auto">
             Retour
           </Button>
         </div>
@@ -1348,11 +1335,11 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
 
   return (
     <TestSecurity candidatId={candidatId} offreId={offreId} onViolation={handleSecurityViolation} maxViolations={2}>
-      <div className="p-4 space-y-6">
+      <div className="p-3 sm:p-4 space-y-4 sm:space-y-6">
         {/* Timer display */}
-        <div className="flex items-center justify-center gap-2 text-lg font-medium">
-          <Clock className="h-5 w-5" />
-          <span className={`${timeRemaining < 60 ? "text-red-500 animate-pulse" : ""}`}>
+        <div className="flex items-center justify-center gap-2 text-base sm:text-lg font-medium">
+          <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
+          <span className={`${timeRemaining < 60 ? "text-red-500 animate-pulse" : ""} text-sm sm:text-base`}>
             Temps restant: {formatTime(timeRemaining)}
           </span>
         </div>
@@ -1360,23 +1347,26 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
         {/* Progress bar */}
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <h3 className="font-medium">
+            <h3 className="font-medium text-sm sm:text-base">
               Question {currentQuestionIndex + 1} sur {questions.length}
             </h3>
-            <span className="text-sm text-muted-foreground">{Math.round(progress)}% complété</span>
+            <span className="text-xs sm:text-sm text-muted-foreground">{Math.round(progress)}% complété</span>
           </div>
           <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-            <div className="h-full bg-primary rounded-full" style={{ width: `${progress}%` }}></div>
+            <div
+              className="h-full bg-primary rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            ></div>
           </div>
         </div>
 
         {/* Question card */}
-        <div className="border rounded-lg p-6 space-y-6 shadow-sm">
+        <div className="border rounded-lg p-4 sm:p-6 space-y-4 sm:space-y-6 shadow-sm">
           <div className="space-y-2">
-            <h4 className="text-lg font-medium">{currentQuestion.question}</h4>
+            <h4 className="text-base sm:text-lg font-medium leading-relaxed">{currentQuestion.question}</h4>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {currentQuestion.options.map((option, index) => {
               // Vérifier si cette option correspond à la réponse sauvegardée
               const isSelected =
@@ -1385,21 +1375,21 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
               return (
                 <div
                   key={index}
-                  className={`flex items-center p-3 rounded-md border cursor-pointer transition-colors ${
+                  className={`flex items-start sm:items-center p-3 sm:p-4 rounded-md border cursor-pointer transition-colors ${
                     isSelected ? "bg-blue-100 border-blue-500" : "hover:bg-gray-50"
                   }`}
                   onClick={() => handleOptionSelect(option)}
                 >
-                  <div className="flex-shrink-0 mr-3">
+                  <div className="flex-shrink-0 mr-3 mt-1 sm:mt-0">
                     <div
-                      className={`h-5 w-5 rounded-full flex items-center justify-center ${
+                      className={`h-4 w-4 sm:h-5 sm:w-5 rounded-full flex items-center justify-center ${
                         isSelected ? "bg-blue-500" : "border border-gray-300"
                       }`}
                     >
-                      {isSelected && <div className="h-2 w-2 rounded-full bg-white"></div>}
+                      {isSelected && <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-white"></div>}
                     </div>
                   </div>
-                  <span className="text-sm">{option.text}</span>
+                  <span className="text-sm sm:text-base leading-relaxed">{option.text}</span>
                 </div>
               )
             })}
@@ -1408,21 +1398,26 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
           {error && (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="text-sm">{error}</AlertDescription>
             </Alert>
           )}
 
           {/* Navigation buttons */}
-          <div className="flex justify-between pt-4">
+          <div className="flex flex-col sm:flex-row justify-between pt-4 gap-3 sm:gap-0">
             <Button
               variant="outline"
               onClick={goToPreviousQuestion}
               disabled={currentQuestionIndex === 0 || submitting}
+              className="w-full sm:w-auto order-2 sm:order-1"
             >
               Question précédente
             </Button>
 
-            <Button onClick={goToNextQuestion} disabled={!selectedOption || submitting}>
+            <Button
+              onClick={goToNextQuestion}
+              disabled={!selectedOption || submitting}
+              className="w-full sm:w-auto order-1 sm:order-2"
+            >
               {submitting ? (
                 <>
                   <div className="h-4 w-4 rounded-full border-2 border-t-primary border-r-transparent border-b-transparent border-l-transparent animate-spin mr-2"></div>
@@ -1438,11 +1433,11 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
         </div>
 
         {/* Question counter pills */}
-        <div className="flex flex-wrap gap-2 justify-center">
+        <div className="flex flex-wrap gap-2 justify-center max-h-32 overflow-y-auto">
           {questions.map((_, index) => (
             <div
               key={index}
-              className={`h-8 w-8 rounded-full flex items-center justify-center text-sm cursor-pointer transition-colors ${
+              className={`h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center text-xs sm:text-sm cursor-pointer transition-colors ${
                 index === currentQuestionIndex
                   ? "bg-blue-500 text-white"
                   : answers[index]
@@ -1456,26 +1451,26 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
           ))}
         </div>
       </div>
-      {/* Ajouter ces composants à la fin du return, juste avant la dernière balise fermante </TestSecurity>
-// Ajouter ceci juste avant la dernière balise fermante </TestSecurity> */}
+
+      {/* Modals */}
       {showConfirmationModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-lg shadow-lg max-w-md w-full overflow-hidden">
-            <div className="bg-amber-50 border-b border-amber-100 px-6 py-4 flex items-center gap-3">
-              <AlertCircle className="h-6 w-6 text-amber-500" />
-              <h3 className="text-lg font-semibold text-amber-800">Terminer le test</h3>
+            <div className="bg-amber-50 border-b border-amber-100 px-4 sm:px-6 py-4 flex items-center gap-3">
+              <AlertCircle className="h-5 w-5 sm:h-6 sm:w-6 text-amber-500" />
+              <h3 className="text-base sm:text-lg font-semibold text-amber-800">Terminer le test</h3>
             </div>
-            <div className="px-6 py-4">
-              <p className="text-gray-600">
+            <div className="px-4 sm:px-6 py-4">
+              <p className="text-gray-600 text-sm sm:text-base">
                 Êtes-vous sûr de vouloir terminer le test ? Vous ne pourrez pas modifier vos réponses après la
                 soumission.
               </p>
             </div>
-            <div className="px-6 py-4 border-t bg-gray-50 flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setShowConfirmationModal(false)}>
+            <div className="px-4 sm:px-6 py-4 border-t bg-gray-50 flex flex-col sm:flex-row justify-end gap-2">
+              <Button variant="outline" onClick={() => setShowConfirmationModal(false)} className="w-full sm:w-auto">
                 Annuler
               </Button>
-              <Button className="bg-amber-600 hover:bg-amber-700" onClick={handleConfirmSubmit}>
+              <Button className="bg-amber-600 hover:bg-amber-700 w-full sm:w-auto" onClick={handleConfirmSubmit}>
                 Terminer
               </Button>
             </div>
@@ -1494,28 +1489,28 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
               <X className="h-4 w-4" />
               <span className="sr-only">Fermer</span>
             </button>
-            <div className="bg-red-50 border-b border-red-100 px-6 py-4">
+            <div className="bg-red-50 border-b border-red-100 px-4 sm:px-6 py-4">
               <div className="flex items-center gap-3">
-                <AlertCircle className="h-6 w-6 text-red-500" />
-                <h3 className="text-lg font-semibold text-red-800">Questions non répondues</h3>
+                <AlertCircle className="h-5 w-5 sm:h-6 sm:w-6 text-red-500" />
+                <h3 className="text-base sm:text-lg font-semibold text-red-800">Questions non répondues</h3>
               </div>
             </div>
-            <div className="px-6 py-4">
-              <p className="text-gray-600 mb-4">
+            <div className="px-4 sm:px-6 py-4">
+              <p className="text-gray-600 mb-4 text-sm sm:text-base">
                 Veuillez répondre à toutes les questions avant de terminer le test. Il reste{" "}
                 <span className="font-semibold text-red-600">{unansweredQuestions.length}</span> question(s) sans
                 réponse.
               </p>
 
               <div className="bg-red-50 p-4 rounded-md">
-                <h4 className="font-medium text-red-800 mb-2">Questions à compléter :</h4>
-                <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
+                <h4 className="font-medium text-red-800 mb-2 text-sm sm:text-base">Questions à compléter :</h4>
+                <div className="flex flex-wrap gap-2 max-h-32 sm:max-h-40 overflow-y-auto">
                   {unansweredQuestions.map((index) => (
                     <Button
                       key={index}
                       variant="outline"
                       size="sm"
-                      className="border-red-200 bg-white text-red-700 hover:bg-red-50"
+                      className="border-red-200 bg-white text-red-700 hover:bg-red-50 text-xs sm:text-sm"
                       onClick={() => {
                         navigateToQuestion(index)
                         setShowValidationModal(false)
@@ -1527,8 +1522,10 @@ const PersonalityTest: React.FC<PersonalityTestProps> = ({ candidatId, offreId, 
                 </div>
               </div>
             </div>
-            <div className="px-6 py-4 border-t bg-gray-50 flex justify-end">
-              <Button onClick={() => setShowValidationModal(false)}>Compris</Button>
+            <div className="px-4 sm:px-6 py-4 border-t bg-gray-50 flex justify-end">
+              <Button onClick={() => setShowValidationModal(false)} className="w-full sm:w-auto">
+                Compris
+              </Button>
             </div>
           </div>
         </div>

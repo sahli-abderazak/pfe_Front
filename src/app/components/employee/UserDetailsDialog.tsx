@@ -38,7 +38,7 @@ export function UserDetailsDialog({ user, isOpen, onClose }: UserDetailsDialogPr
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="user-details-dialog sm:max-w-[400px]">
+       <DialogContent className="sm:max-w-[480px] max-w-[110vw] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="dialog-title">Détails du recruteur</DialogTitle>
         </DialogHeader>

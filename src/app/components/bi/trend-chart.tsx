@@ -180,12 +180,12 @@ export function TrendChart() {
       case "day":
         return {
           title: `Tendances journalières de ce moins - ${selectedYear}`,
-          description: "Évolution des candidats et offres par jour",
+          description: "Évolution des candidats et offres par jour de ce moins",
         }
       case "week":
         return {
-          title: "Tendances sur 7 jours",
-          description: "Évolution des candidats et offres par semaine",
+          title: "Tendances sur cette semaine",
+          description: "Évolution des candidats et offres de cette semaine",
         }
       case "month":
         return {

@@ -109,33 +109,7 @@ export function CandidatesByDepartment() {
         <div className="flex flex-row items-center justify-between">
           <div>
             <CardTitle className="text-lg font-medium text-gray-900">Candidats par Département</CardTitle>
-            <CardDescription className="text-sm text-gray-500">Répartition géographique des candidats</CardDescription>
-          </div>
-          <div className="flex space-x-1">
-            <button
-              onClick={() => sortData("original")}
-              className={`px-2 py-1 text-xs rounded ${
-                sortOrder === "original" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              Original
-            </button>
-            <button
-              onClick={() => sortData("asc")}
-              className={`px-2 py-1 text-xs rounded ${
-                sortOrder === "asc" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              Croissant
-            </button>
-            <button
-              onClick={() => sortData("desc")}
-              className={`px-2 py-1 text-xs rounded ${
-                sortOrder === "desc" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              Décroissant
-            </button>
+            <CardDescription className="text-sm text-gray-500">Répartition des Candidats par Département</CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -186,14 +160,7 @@ export function CandidatesByDepartment() {
         )}
 
         {!loading && sortedData.length > 0 && (
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            <div className="bg-blue-50 p-3 rounded-lg flex items-center gap-2">
-              <Users className="h-5 w-5 text-blue-500" />
-              <div>
-                <p className="text-sm font-medium text-gray-700">Total Candidats</p>
-                <p className="text-xl font-bold text-gray-900">{totalCandidates}</p>
-              </div>
-            </div>
+          <div className="mt-4 grid grid-cols-2 gap-2">
             <div className="bg-gray-50 p-3 rounded-lg">
               <p className="text-sm font-medium text-gray-700">Département Principal</p>
               <p className="text-xl font-bold text-gray-900">

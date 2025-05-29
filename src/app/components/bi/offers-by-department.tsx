@@ -144,7 +144,7 @@ export function OffersByDepartment() {
       <CardHeader className="pb-2">
         <CardTitle className="text-lg font-medium text-gray-900">Offres par Département</CardTitle>
         <CardDescription className="text-sm text-gray-500">
-          Répartition géographique des offres d'emploi
+          Répartition des Offres par Département
         </CardDescription>
       </CardHeader>
       <CardContent>

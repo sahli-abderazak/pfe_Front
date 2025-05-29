@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer } from "@/components/ui/chart1"
+import { ChartContainer } from "@/components/ui/chart"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend, Tooltip } from "recharts"
-import { TrendingUp, TrendingDown, Minus, Calendar } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, Calendar } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 type CandidatesByMonth = {
@@ -190,6 +190,7 @@ export function CandidatesByMonth() {
                     domain={[minValue, maxValue]}
                     tick={{ fill: "#64748b", fontSize: 12 }}
                     axisLine={{ stroke: "rgba(0,0,0,0.1)" }}
+                    tickFormatter={(value) => Math.round(value).toString()}
                   />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend verticalAlign="top" height={36} wrapperStyle={{ paddingTop: "10px", fontSize: "12px" }} />
@@ -205,11 +206,7 @@ export function CandidatesByMonth() {
               </ResponsiveContainer>
             </ChartContainer>
 
-            <div className="mt-4 grid grid-cols-3 gap-2">
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <p className="text-sm font-medium text-gray-700">Total Candidats</p>
-                <p className="text-xl font-bold text-gray-900">{totalCandidates}</p>
-              </div>
+            <div className="mt-4 grid grid-cols-2 gap-2">
               <div className="bg-gray-50 p-3 rounded-lg">
                 <p className="text-sm font-medium text-gray-700">Moyenne Mensuelle</p>
                 <p className="text-xl font-bold text-gray-900">{averagePerMonth}</p>

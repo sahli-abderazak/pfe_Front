@@ -26,6 +26,32 @@ export function DetailedStats({ isAdmin = false }: DetailedStatsProps) {
   const [loadingStatut, setLoadingStatut] = useState(true)
   const [loadingJour, setLoadingJour] = useState(true)
 
+  // Fonction pour traduire les statuts et assigner les couleurs
+  const translateStatutData = (data: ChartData[]) => {
+    return data.map((item) => {
+      let translatedName = item.name
+
+      switch (item.name) {
+        case "pending":
+          translatedName = "En attente"
+          break
+        case "completed":
+          translatedName = "Terminés"
+          break
+        case "cancelled":
+          translatedName = "Annulés"
+          break
+        default:
+          translatedName = item.name
+      }
+
+      return {
+        ...item,
+        name: translatedName,
+      }
+    })
+  }
+
   const loadData = async () => {
     setRefreshing(true)
     setError(false)
@@ -54,7 +80,9 @@ export function DetailedStats({ isAdmin = false }: DetailedStatsProps) {
         if (statutRes.ok) {
           const statutData = await statutRes.json()
           if (Array.isArray(statutData)) {
-            setEntretiensParStatut(statutData)
+            // Traduire les statuts avant de les stocker
+            const translatedData = translateStatutData(statutData)
+            setEntretiensParStatut(translatedData)
           } else {
             setEntretiensParStatut([])
           }
@@ -173,7 +201,7 @@ export function DetailedStats({ isAdmin = false }: DetailedStatsProps) {
                     index="name"
                     category="value"
                     valueFormatter={(value) => `${value} entretiens`}
-                    colors={["blue", "indigo", "slate", "sky"]}
+                    colors={["blue", "red", "green", "slate"]}
                     className="mt-4"
                   />
                 ) : (

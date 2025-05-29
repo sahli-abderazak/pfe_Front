@@ -140,13 +140,13 @@ export default function Header() {
               >
                 Annonces
               </Link>
-              <Link
+           {/*    <Link
                 href="/temoiniage"
                 className="text-lg font-medium hover:text-primary transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Témoignages
-              </Link>
+              </Link> */}
               <Link
                 href="/contact"
                 className="text-lg font-medium hover:text-primary transition-colors"
@@ -154,9 +154,7 @@ export default function Header() {
               >
                 Contact
               </Link>
-            </div>
-
-            <div className="mt-auto flex flex-col gap-4">
+              <div className="mt-auto flex flex-col gap-4">
               <Button variant="outline" className="w-full" asChild>
                 <Link href="/register" onClick={() => setIsOpen(false)}>
                   S'inscrire
@@ -168,6 +166,9 @@ export default function Header() {
                 </Link>
               </Button>
             </div>
+            </div>
+
+            
           </div>
         </div>
       </div>

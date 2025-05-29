@@ -111,6 +111,7 @@ function InterviewScheduler({
   candidatEmail,
   offreId,
   offrePoste,
+  onInterviewScheduled, // Nouvelle prop
 }: {
   candidatId: number
   candidatNom: string
@@ -118,6 +119,7 @@ function InterviewScheduler({
   candidatEmail: string
   offreId: number
   offrePoste: string
+  onInterviewScheduled?: () => void // Nouvelle prop
 }) {
   const [date, setDate] = useState<Date>()
   const [time, setTime] = useState<string>("")
@@ -280,6 +282,12 @@ function InterviewScheduler({
         type: "success",
         text: `Un email a été envoyé à ${candidatPrenom} ${candidatNom} pour confirmer l'entretien.`,
       })
+
+      // Appeler la callback pour mettre à jour l'état parent
+      if (onInterviewScheduled) {
+        onInterviewScheduled()
+      }
+
       setTimeout(() => setIsOpen(false), 2000)
     } catch (error) {
       console.error("Erreur:", error)
@@ -952,11 +960,11 @@ function QuestionItem({
 function PersonalityRadarChart({ scores }: { scores: TestResponse["scores"] }) {
   // Définir les traits et leurs valeurs
   const traits = [
-    { name: "Ouverture", value: scores.ouverture },
-    { name: "Conscience", value: scores.conscience },
-    { name: "Extraversion", value: scores.extraversion },
-    { name: "Agréabilité", value: scores.agreabilite },
-    { name: "Stabilité", value: scores.stabilite },
+    { name: "Ouv", value: scores.ouverture },
+    { name: "Cons", value: scores.conscience },
+    { name: "ExtraV", value: scores.extraversion },
+    { name: "Agre", value: scores.agreabilite },
+    { name: "Stab", value: scores.stabilite },
   ]
 
   // Nombre de traits
@@ -1263,6 +1271,11 @@ function CandidatCard({
     } else {
       setOpenQuestionIndex(index)
     }
+  }
+
+  // Ajouter cette fonction dans le composant CandidatCard
+  const handleInterviewScheduled = () => {
+    setHasInterview(true)
   }
 
   return (
@@ -1641,6 +1654,7 @@ function CandidatCard({
                 candidatEmail={candidat.email}
                 offreId={offreId}
                 offrePoste={candidat.offre.poste}
+                onInterviewScheduled={handleInterviewScheduled} // Nouvelle prop
               />
             </>
           )}

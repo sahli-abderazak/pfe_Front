@@ -139,12 +139,11 @@ const WORK_TYPES = [
 
 const EXPERIENCE_LEVELS = [
   { id: "1", name: "Sans expérience" },
-  { id: "2", name: "1ans" },
   { id: "3", name: "2ans" },
   { id: "4", name: "3ans" },
-  { id: "5", name: "4ans" },
-  { id: "6", name: "5ans" },
-  { id: "7", name: "7ans" },
+  { id: "5", name: "5ans" },
+  { id: "6", name: "7ans" },
+  { id: "7", name: "+10ans" },
 ]
 
 const EDUCATION_LEVELS = [

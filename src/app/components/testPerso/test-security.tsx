@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle, Shield } from "lucide-react"
+import { AlertCircle, Shield } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
 interface TestSecurityProps {
@@ -229,41 +229,34 @@ export default function TestSecurity({
   // Fonction pour afficher le message de triche détectée
   const renderCheatingDetectedMessage = () => {
     return (
-      <div className="w-full max-w-3xl mx-auto">
+      <div className="w-full max-w-3xl mx-auto px-4">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-red-200">
-          <div className="bg-gradient-to-r from-red-600 to-red-700 p-6 flex flex-col items-center justify-center text-white">
-            <div className="h-20 w-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4">
+          <div className="bg-gradient-to-r from-red-600 to-red-700 p-4 sm:p-6 flex flex-col items-center justify-center text-white">
+            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-white/20 rounded-full animate-pulse"></div>
-                <Shield className="h-10 w-10 text-white relative z-10" />
+                <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-white relative z-10" />
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-center">Test bloqué : Triche détectée</h2>
-            <p className="text-white/80 text-center mt-2">Vous n'êtes pas autorisé à repasser ce test</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-center">Test bloqué : Triche détectée</h2>
+            <p className="text-white/80 text-center mt-2 text-sm sm:text-base">Vous n'êtes pas autorisé à repasser ce test</p>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             <Alert variant="destructive" className="mb-6">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
+              <AlertDescription className="text-sm">
                 Nous avons détecté des comportements suspects lors de votre tentative. Pour des raisons de sécurité et
                 d'équité, vous ne pouvez plus continuer ce test.
               </AlertDescription>
             </Alert>
 
-            <div className="bg-red-50 border border-red-100 rounded-lg p-4 mb-6">
-              <h3 className="text-lg font-semibold text-red-800 mb-2">Pourquoi ce message ?</h3>
-              <p className="text-red-700 text-sm">
-                Notre système a détecté des tentatives de contournement des règles du test, comme des changements
-                d'onglet, des sorties de la fenêtre, des tentatives de copier-coller, ou d'autres actions non autorisées
-                pendant l'évaluation.
-              </p>
-            </div>
+           
 
             <div className="flex justify-center">
               <Button
                 onClick={() => window.history.back()}
-                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 w-full sm:w-auto"
               >
                 Retour aux offres d'emploi
               </Button>
@@ -277,13 +270,27 @@ export default function TestSecurity({
   return (
     <div className="test-security-container">
       {showWarning && (
-        <Alert
-          variant="destructive"
-          className="test-security-warning mb-4 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-md"
-        >
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{warningMessage}</AlertDescription>
-        </Alert>
+        <div className="fixed inset-0 flex items-start justify-center pt-[15%] z-[9999] pointer-events-none px-4">
+          <div className="animate-bounce-in">
+            <Alert
+              variant="destructive"
+              className="test-security-warning shadow-lg border-2 border-red-500 bg-red-50 max-w-md w-full pointer-events-auto"
+            >
+              <div className="flex items-start gap-3">
+                <div className="bg-red-100 p-2 rounded-full flex-shrink-0">
+                  <AlertCircle className="h-5 w-5 sm:h-6 sm:w-6 text-red-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-base sm:text-lg text-red-700 mb-1">Attention !</h3>
+                  <AlertDescription className="text-red-700 font-medium text-sm sm:text-base">{warningMessage}</AlertDescription>
+                  <p className="text-red-600 text-xs sm:text-sm mt-2">
+                    Cette action est considérée comme une tentative de triche et sera signalée.
+                  </p>
+                </div>
+              </div>
+            </Alert>
+          </div>
+        </div>
       )}
 
       {/* Si trop de violations, on affiche le message de triche */}
@@ -294,15 +301,15 @@ export default function TestSecurity({
           {/* Si pas en plein écran et pas trop de violations, on affiche la demande de plein écran */}
           {!isFullscreen && (
             <div className="fullscreen-prompt fixed inset-0 bg-black/80 flex flex-col items-center justify-center z-50 p-4 text-center">
-              <div className="bg-white p-6 rounded-lg max-w-md">
-                <h3 className="text-xl font-bold mb-4">Mode plein écran requis</h3>
-                <p className="mb-4">
+              <div className="bg-white p-4 sm:p-6 rounded-lg max-w-md w-full">
+                <h3 className="text-lg sm:text-xl font-bold mb-4">Mode plein écran requis</h3>
+                <p className="mb-4 text-sm sm:text-base text-gray-600">
                   Pour assurer l'intégrité du test, veuillez passer en mode plein écran en cliquant sur le bouton
                   ci-dessous.
                 </p>
                 <button
                   onClick={requestFullscreenMode}
-                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+                  className="w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
                 >
                   Passer en plein écran
                 </button>
